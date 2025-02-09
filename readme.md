@@ -13,14 +13,14 @@ python -m venv env && env\Scripts\activate && python -m pip install --upgrade pi
 3. В корне проекта необходимо создать файл с конфигом config.py
 ```python
 # Secret Key для хранения сессий. Просто сгенерируйте что-то сложное. 
-SECRET_KEY = '1RiClG8ia4I5TX3PJJTI0RvhgfjJVJOi4LLelBuA8Mk4ZJ5J8Y4NVLIawNV5syJ0'
+SECRET_KEY = ''
 
 # Данные для подключения к базе данных PostgreSQL
 DB_HOST = 'postgres_emp_app'
 DB_PORT = 5432
 DB_NAME = 'postgres_empapp_db'
 DB_USER = 'postgres_empapp'
-DB_PWD = 'YJ1iKdaNDQMfuj7keOce3AKxTvzGo50r' 
+DB_PWD = '' 
 
 ABOUT_FILE = 'static/about.md' # файл в котором описана информация для помощи
 ```
