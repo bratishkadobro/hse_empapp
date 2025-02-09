@@ -1,0 +1,34 @@
+/* Основные стили */
+body {
+    background-color: #f1f3f5 !important;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 20px; /* Уменьшен отступ */
+}
+
+.welcome-text {
+    color: #4b4f56;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    background-image: linear-gradient(to right, #6c757d, #a9b2b6);
+    -webkit-background-clip: text;
+    color: transparent;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: default;
+    transition: background-image 0.3s ease-in-out; /* Добавлен плавный переход */
+}
+
+.welcome-text:hover {
+    background-image: linear-gradient(to right, #007bff, #00c4cc);
+}

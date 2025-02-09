@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  empapp_prod:
+    build:
+      context: ./app/
+      dockerfile: Dockerfile
+    container_name: empapp_prod
+    volumes:
+      - ./app:/app
+      - /etc/localtime:/etc/localtime:ro  # Монтирование localtime из хостовой системы
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "80:80"
+    command: bash -c "sleep 10 && python app.py"  # Подождать 10 секунд перед запуском
+    depends_on:
+      - emp_app_postgres
+    networks:
+      - empapp_network
+
+  emp_app_postgres:
+    image: postgres:13
+    container_name: postgres_emp_app
+    environment:
+      - POSTGRES_USER=postgres_empapp
+      - POSTGRES_PASSWORD=YJ1iKdaNDQMfuj7keOce3AKxTvzGo50r
+      - POSTGRES_DB=postgres_empapp_db
+    volumes:
+      - postgres-data-empapp:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "15432:5432"
+    networks:
+      - empapp_network
+
+volumes:
+  postgres-data-empapp:
+
+networks:
+  empapp_network:
+    driver: bridge

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Административная панель</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Стиль для body */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        /* Стиль для карточек */
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Стиль для кнопок */
+        .card-btn {
+            background-color: #e74c3c; /* Красный цвет */
+            color: white; /* Белый цвет текста */
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        /* Стиль для кнопок на карточках при наведении */
+        .card-btn:hover {
+            background-color: #c0392b; /* Темный красный */
+            cursor: pointer;
+        }
+
+        /* Стиль для карточки "Выход" */
+        .card-exit {
+            background-color: #e74c3c; /* Красный цвет */
+            color: white;
+        }
+
+        .card-exit .card-btn {
+            background-color: #c0392b; /* Темный красный для кнопки */
+        }
+
+        .card-exit .card-btn:hover {
+            background-color: #e74c3c;
+        }
+
+        /* Стиль для других карточек (спокойные цвета) */
+        .card-normal {
+            background-color: #ecf0f1; /* Светло-серый */
+        }
+
+        .card-normal .card-btn {
+            background-color: #e74c3c; /* Красный цвет */
+            color: white; /* Белый цвет текста */
+        }
+
+        .card-normal .card-btn:hover {
+            background-color: #c0392b; /* Темный красный */
+        }
+
+        /* Дополнительные отступы для контейнера */
+        .container {
+            margin-top: 50px;
+        }
+
+        /* Стиль для заголовков в карточках */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+
+        /* Мобильная адаптивность */
+        @media (max-width: 767px) {
+            .container {
+                margin-top: 20px;
+            }
+            .card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+{% include 'admin/admin_menu.html' %}
+<body>
+
+    <!-- Меню (например, подключается через шаблон) -->
+
+    <!-- Контейнер для карточек -->
+    <div class="container">
+        <div class="row">
+            <!-- Карточки -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card card-normal">
+                    <div class="card-body">
+                        <h5 class="card-title">Добавить пользователя</h5>
+                        <p class="card-text">Создать нового пользователя и назначить ему департамент.</p>
+                        <button class="btn card-btn w-100" onclick="window.location.href='/admin/users/create'">Перейти</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card card-normal">
+                    <div class="card-body">
+                        <h5 class="card-title">Таблица пользователей</h5>
+                        <p class="card-text">Просмотреть и управлять существующими пользователями.</p>
+                        <button class="btn card-btn w-100" onclick="window.location.href='/admin/users'">Перейти</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card card-normal">
+                    <div class="card-body">
+                        <h5 class="card-title">Создать отдел</h5>
+                        <p class="card-text">Создать новый отдел для дальнейшего использования в сервисе.</p>
+                        <button class="btn card-btn w-100" onclick="window.location.href='/admin/departments/create'">Перейти</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card card-normal">
+                    <div class="card-body">
+                        <h5 class="card-title">Управление отделами</h5>
+                        <p class="card-text">Просмотреть созданные отделы и управлять ими.</p>
+                        <button class="btn card-btn w-100" onclick="window.location.href='/admin/departments'"">Перейти</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Подключение Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

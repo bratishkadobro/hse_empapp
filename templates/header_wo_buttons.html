@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ФКН ВШЭ</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Подключаем Font Awesome для иконок -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Подключение шрифта из Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Анимация появления шапки */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    header {
+      background: linear-gradient(45deg, #1e3a8a, #365f9b);
+      padding: 8px 20px; /* Уменьшена высота шапки */
+      color: white;
+      font-size: 18px; /* Уменьшенный размер шрифта */
+      animation: fadeIn 1s ease;
+    }
+
+    .logo {
+      font-size: 30px; /* Увеличен размер шрифта для логотипа */
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Мобильный адаптивный стиль */
+    .navbar-nav {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    .navbar-toggler-icon {
+      background-color: white; /* Изменяет иконку меню для лучшей видимости на темном фоне */
+    }
+
+    /* Иконка меню с Font Awesome */
+    .navbar-toggler {
+      border: none;
+    }
+
+    .navbar-toggler-icon {
+      font-size: 1.5rem;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">ФКН ВШЭ</a>
+      </div>
+    </nav>
+  </header>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

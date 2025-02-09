@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подтверждение удаления пользователя</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ6v7q3p6a1etF+v7sV1T0Qx+RiFVf4oJhZpaF6syA5z1PUzUq6vUapX2WlL" crossorigin="anonymous">
+</head>
+{% include 'admin/admin_menu.html' %}
+
+<body>
+  <div class="container my-5">
+    <h2>Подтверждение удаления пользователя</h2>
+    <p><b>Вы уверены, что хотите удалить следующего пользователя?</b></p>
+
+    <table class="table">
+      <tr><td><strong>Логин:</strong></td><td>{{ user['username'] }}</td></tr>
+      <tr><td><strong>ФИО:</strong></td><td>{{ user['realname'] }}</td></tr>
+      <tr><td><strong>Электронная почта:</strong></td><td>{{ user['email'] }}</td></tr>
+      <tr><td><strong>ID подразделения:</strong></td><td>{{ user['department_owner_id'] }}</td></tr>
+    </table>
+
+    <form method="post">
+      <button type="submit" class="btn btn-danger">Удалить пользователя</button>
+      <a href="{{ url_for('users') }}" class="btn btn-secondary">Отмена</a>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76cxZ1trCj1wyfufmsCj7k1b2Ustf1I0pUPmYvh0jqjtkATNJkveKNxOkJwVf+P" crossorigin="anonymous"></script>
+</body>
+</html>

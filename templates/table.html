@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ФКН ВШЭ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Добавляем плавную анимацию увеличения */
+        .alert {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .alert:hover {
+            transform: scale(1.05);
+        }
+
+        /* Улучшение внешнего вида таблицы */
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table.table th, table.table td {
+            padding: 12px 15px;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Оформление шапки таблицы */
+        table.table th {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Убираем разные фоны для строк */
+        table.table tbody tr {
+            background-color: #ffffff;
+        }
+
+        /* Эффект наведения для строк */
+        table.table tbody tr:hover {
+            background-color: #e9ecef !important; /* При наведении меняем фон */
+            cursor: pointer;
+        }
+
+        /* Стиль для кнопок "Удалить запись" */
+        .btn-danger.btn-sm {
+            font-size: 0.875rem;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger.btn-sm:hover {
+            background-color: #c82333;
+        }
+
+        /* Улучшение видимости иконок */
+        i.bi {
+            font-size: 1.1rem;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        i.bi:hover {
+            color: #0056b3;
+        }
+
+        /* Добавление теней для улучшения восприятия */
+        .table-responsive {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Шапка -->
+    {% include 'header.html' %}
+
+    <!-- Основное содержимое -->
+    <main class="flex-fill py-5">
+        <div class="container">
+            <div class="main-content bg-white shadow-lg rounded p-4 mx-auto" style="max-width: 1200px;">
+                <!-- Заголовок департамента -->
+                <h2 class="text-center text-gradient fw-bold fs-2 mb-4" style="background-image: linear-gradient(to right, #6c757d, #a9b2b6); -webkit-background-clip: text; color: transparent;">{{ department_name }}</h2>
+                
+                <!-- Форма фильтрации с текстом -->
+                <form method="GET" class="row g-3 bg-light p-3 rounded shadow-sm border">
+                    <div class="col-12 col-md-3">
+                        <input type="text" class="form-control" id="employee" name="employee" value="{{ request.args.get('employee', '') }}" placeholder="Сотрудник">
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <select class="form-control" id="department" name="department">
+                            <option value="">Выберите отдел</option>
+                            {% for department in departments %}
+                                <option value="{{ department[1] }}" {% if department[1] == request.args.get('department') %}selected{% endif %}>
+                                    {{ department[1] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.args.get('start_date', '') }}">
+                    </div>
+                    <div class="col-12 col-md-2">
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.args.get('end_date', '') }}">
+                    </div>
+                    <div class="d-flex justify-content-start gap-3 mt-3 col-12 col-md-2">
+                        <button type="submit" class="btn btn-primary">Поиск</button>
+                        <a href="{{ url_for('table') }}" class="btn btn-secondary">Сбросить</a>
+                    </div>
+                </form>
+
+                <!-- Добавим отступ между фильтрами и таблицей -->
+                <div class="mt-4"></div> <!-- Этот элемент добавит отступ между фильтрами и таблицей или сообщением об отсутствии данных -->
+
+                {% if no_data %}
+                    <div class="alert alert-light text-center p-4 mb-4 border-0 rounded shadow-lg" style="background-color: #f1f8ff; border: 2px dashed #b3e0ff; overflow: hidden;">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-exclamation-circle fs-1 me-3 text-info"></i>
+                            <span class="fs-4 fw-bold text-dark" style="font-family: 'Arial', sans-serif;">В таблице нет данных</span>
+                        </div>
+                        <p class="text-muted mt-3 fs-5">Попробуйте изменить фильтры или вернуться позже.</p>
+                    </div>
+                {% else %}
+                    <!-- Основная таблица с данными -->
+                    <div class="table-responsive mt-4">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th onclick="sortTable(0)">Дата <i class="bi bi-arrow-down-up"></i></th>
+                                    <th>ФИО</th>
+                                    <th>Отдел</th>
+                                    <th>Причина</th>
+                                    <th>Запись внесена</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for date, data in grouped_data.items() %}
+                                    {% for person in data %}
+                                        <tr onmouseover="highlightRow(this)" onmouseout="unhighlightRow(this)">
+                                            <td>{{ person[1] }}</td>
+                                            <td>{{ person[2] }}</td>
+                                            <td>{{ person[3] }}</td>
+                                            <td>{{ person[4] }}</td>
+                                            <td>{{ person[5] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Отображение количества записей -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        <span>Всего записей: {{ filtered_count }}</span>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    {% include 'footer.html' %}
+
+    <!-- Подключаем Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let sortAscending = true; // Флаг сортировки
+
+        function sortTable(columnIndex) {
+            const table = document.querySelector("table");
+            const rows = Array.from(table.rows).slice(1); // Пропускаем заголовок
+
+            // Сортировка строк
+            rows.sort((rowA, rowB) => {
+                const cellA = rowA.cells[columnIndex].textContent.trim();
+                const cellB = rowB.cells[columnIndex].textContent.trim();
+
+                if (columnIndex === 0) {
+                    // Для даты преобразуем строки в объекты Date
+                    const dateA = new Date(cellA);
+                    const dateB = new Date(cellB);
+                    return sortAscending ? dateA - dateB : dateB - dateA;
+                }
+
+                return sortAscending
+                    ? cellA.localeCompare(cellB, 'ru', { numeric: true })
+                    : cellB.localeCompare(cellA, 'ru', { numeric: true });
+            });
+
+            // Перемещаем отсортированные строки обратно в таблицу
+            rows.forEach(row => table.appendChild(row));
+
+            // Обновляем иконку
+            const sortIcon = document.querySelector("th i");
+            if (sortAscending) {
+                sortIcon.classList.remove('bi-arrow-down-up');
+                sortIcon.classList.add('bi-arrow-up');
+            } else {
+                sortIcon.classList.remove('bi-arrow-up');
+                sortIcon.classList.add('bi-arrow-down');
+            }
+
+            // Переключаем порядок сортировки
+            sortAscending = !sortAscending;
+        }
+
+        function confirmDelete(event) {
+            // Показать всплывающее окно с подтверждением
+            if (!confirm('Вы уверены, что хотите удалить эту запись?')) {
+                // Если пользователь отменил, предотвратить отправку формы
+                event.preventDefault();
+            }
+        }
+
+        // Функции для изменения фона строки при наведении
+        function highlightRow(row) {
+            row.style.backgroundColor = '#e9ecef'; // Меняем фон при наведении
+        }
+
+        function unhighlightRow(row) {
+            row.style.backgroundColor = ''; // Сбрасываем фон, когда мышь уходит
+        }
+
+    </script>
+
+</body>
+</html>

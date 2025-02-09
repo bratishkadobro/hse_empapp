@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ФКН ВШЭ</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Подключаем Font Awesome для иконок -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Подключение шрифта из Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Анимация появления шапки */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Анимация плавного появления элементов навигации */
+    @keyframes fadeInNav {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    header {
+      background: linear-gradient(45deg, #1e3a8a, #365f9b);
+      padding: 8px 20px; /* Уменьшена высота шапки */
+      color: white;
+      font-size: 18px; /* Уменьшен размер шрифта */
+      animation: fadeIn 1s ease;
+    }
+
+    .logo {
+      font-size: 30px; /* Увеличен размер шрифта для логотипа */
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .nav-item {
+      color: #ff9900; /* Яркий цвет текста */
+      padding: 8px 12px;
+      border-radius: 6px;
+      position: relative;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeInNav 1s forwards;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #ff4d4d;
+    }
+
+    .nav-item::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #ff4d4d;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-item:hover::before {
+      transform: scaleX(1);
+    }
+
+    .logout {
+      color: #ff9900; /* Яркий цвет текста для кнопки выхода */
+    }
+
+    .logout:hover {
+      background-color: rgba(255, 77, 77, 0.2);
+    }
+
+    /* Мобильный адаптивный стиль */
+    .navbar-nav {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
+    .navbar-toggler-icon {
+      background-color: white; /* Изменяет иконку меню для лучшей видимости на темном фоне */
+    }
+
+    /* Иконка меню с Font Awesome */
+    .navbar-toggler {
+      border: none;
+    }
+
+    .navbar-toggler-icon {
+      font-size: 1.5rem;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">ФКН ВШЭ</a>
+        <!-- Кнопка с иконкой Font Awesome для мобильной версии -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fas fa-bars"></span> <!-- Иконка меню -->
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/form">Форма</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/table">Таблица</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Профиль</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">Помощь</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link logout" href="/logout">Выход</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
